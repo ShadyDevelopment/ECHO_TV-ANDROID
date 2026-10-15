@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_icon_restart_message">You chose a new icon and logo. They take effect after ECHO TV restarts.</string>
+    <string name="app_icon_restart_title">Restart ECHO TV?</string>
+    <string name="local_sync_browser_body">This address is for the ECHO TV app on your other device. Open Local sync there and pick this device from the list.</string>
+    <string name="local_sync_browser_title">ECHO TV local sync</string>
+    <string name="local_sync_error_unreachable">This device could not be reached. On it, open ECHO TV → Settings → Data → Local sync and turn Sync mode on. Both devices must be on the same Wi-Fi.</string>
+    <string name="settings_app_icon_summary">Colour of the ECHO TV icon and logo</string>
+    <string name="settings_help_bg_background">Stage draws ECHO TV’s own soft colours. Picture shows a picture of yours behind every screen. Plain is a flat dark fill.</string>
+    <string name="settings_help_brand_accent">The ECHO TV logo in the menu, About and setup shows its play triangle in your accent colour. The icon on the home screen keeps its own colours.</string>
+    <string name="settings_help_check_updates">Looks on GitHub for a newer ECHO TV now and offers to install it. Your playlists, favourites and settings stay as they are.</string>
+    <string name="settings_help_startup">What ECHO TV shows when it starts: Home, the channel you watched last, your favourites, or a channel you pick.</string>
+</resources>

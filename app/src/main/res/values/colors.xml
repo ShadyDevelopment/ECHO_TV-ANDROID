@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="echo_tv_background">#081C1D</color>
+    <color name="echo_tv_green">#1E6B51</color>
+    <color name="echo_tv_green_light">#3A9B74</color>
+    <color name="echo_tv_silver">#D4D7DB</color>
+    <color name="owntv_window_bg">@color/echo_tv_background</color>
+    <color name="owntv_icon_bg">@color/echo_tv_background</color>
+</resources>

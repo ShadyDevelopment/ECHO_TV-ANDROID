@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="settings_help_language">
+        <item quantity="one">Język wszystkich menu i komunikatów w ECHO TV. <xliff:g id="count">%1$d</xliff:g> język; dopóki nie wybierzesz, obowiązuje język telewizora.</item>
+        <item quantity="few">Język wszystkich menu i komunikatów w ECHO TV. <xliff:g id="count">%1$d</xliff:g> języki; dopóki nie wybierzesz, obowiązuje język telewizora.</item>
+        <item quantity="many">Język wszystkich menu i komunikatów w ECHO TV. <xliff:g id="count">%1$d</xliff:g> języków; dopóki nie wybierzesz, obowiązuje język telewizora.</item>
+        <item quantity="other">Język wszystkich menu i komunikatów w ECHO TV. <xliff:g id="count">%1$d</xliff:g> języków; dopóki nie wybierzesz, obowiązuje język telewizora.</item>
+    </plurals>
+    <string name="app_icon_restart_message">Wybrano nową ikonę i logo. Zostaną zastosowane po ponownym uruchomieniu ECHO TV.</string>
+    <string name="app_icon_restart_title">Uruchomić ponownie ECHO TV?</string>
+    <string name="common_own_tv_user">Użytkownik ECHO TV</string>
+    <string name="companion_add_page_title">ECHO TV — dodaj źródło</string>
+    <string name="companion_backup_description">Wybierz plik kopii zapasowej ECHO TV (.own lub starszy .json) i naciśnij Wyślij. Zostanie przesłany do telewizora — weź pilot i wybierz tam elementy, które chcesz przywrócić.</string>
+    <string name="companion_backup_page_title">ECHO TV — przywróć kopię zapasową</string>
+    <string name="companion_download_description">Telewizor przygotował plik kopii zapasowej ECHO TV. Dotknij przycisku, aby zapisać go na tym urządzeniu (owntv-backup.own). Przechowuj go w bezpiecznym miejscu — później możesz z niego przywrócić dane.</string>
+    <string name="companion_download_page_title">ECHO TV — pobierz kopię zapasową</string>
+    <string name="companion_image_page_title">ECHO TV — obraz tła</string>
+    <string name="companion_pin_page_title">ECHO TV — wpisz PIN</string>
+    <string name="companion_saved_page_title">ECHO TV — wysłano</string>
+    <string name="content_epg_own_player">Odtwarzacz ECHO TV</string>
+    <string name="content_exit_owntv">Wyjść z ECHO TV?</string>
+    <string name="content_storage_folder_fallback">Folder pobierania jest teraz niedostępny, więc pobrane pliki są zapisywane we własnym folderze ECHO TV, dopóki nie wróci.</string>
+    <string name="local_sync_browser_body">Ten adres jest dla aplikacji ECHO TV na drugim urządzeniu. Otwórz tam Synchronizację lokalną i wybierz to urządzenie z listy.</string>
+    <string name="local_sync_browser_title">Synchronizacja lokalna ECHO TV</string>
+    <string name="local_sync_error_unreachable">Nie udało się połączyć z tym urządzeniem. Otwórz na nim ECHO TV → Ustawienia → Dane → Synchronizacja lokalna i włącz Tryb synchronizacji. Oba urządzenia muszą być w tej samej sieci Wi-Fi.</string>
+    <string name="player_trailer_blocked_title">Tego zwiastuna nie można odtworzyć w ECHO TV</string>
+    <string name="recording_failed_drm">Ten kanał jest chroniony przez DRM, więc można go oglądać, ale nie nagrywać. Ochronę stosuje Twój dostawca, a nie ECHO TV.</string>
+    <string name="recovery_title">ECHO TV nie mogła otworzyć swojej bazy danych</string>
+    <string name="settings_about_license">© 2026 ECHO TV · Licencja GPLv3</string>
+    <string name="settings_app_icon_summary">Kolor ikony i logo ECHO TV</string>
+    <string name="settings_app_startup_description">Ekran otwierany przy uruchamianiu ECHO TV</string>
+    <string xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="settings_auto_frame_rate_warning_description">To urządzenie działa na Androidzie <xliff:g id="android_version">%1$s</xliff:g>. Na Androidzie poniżej 12 telewizor nie może przekazać ECHO TV, na które częstotliwości odświeżania może płynnie przełączać, więc zmiana częstotliwości może sprawić, że ekran zgaśnie na sekundę lub dwie — czasem więcej niż raz podczas programu.\n\nZalecamy pozostawienie tutaj automatycznej częstotliwości odświeżania wyłączonej. Jeśli telewizor przełącza ją bez zakłóceń, włącz ją i zobacz: w każdej chwili możesz ją z powrotem wyłączyć.</string>
+    <string xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="settings_auto_frame_rate_warning_description_mobile">To urządzenie działa na Androidzie <xliff:g id="android_version">%1$s</xliff:g>. Na Androidzie poniżej 12 urządzenie nie może przekazać ECHO TV, na które częstotliwości odświeżania może płynnie przełączać, więc zmiana częstotliwości może sprawić, że ekran zgaśnie na sekundę lub dwie — czasem więcej niż raz podczas programu.\n\nZalecamy pozostawienie tutaj automatycznej częstotliwości odświeżania wyłączonej. Jeśli ekran przełącza ją bez zakłóceń, włącz ją i zobacz: w każdej chwili możesz ją z powrotem wyłączyć.</string>
+    <string name="settings_catchup_player_internal">Odtwarzacz ECHO TV</string>
+    <string name="settings_dns_toggle_description">Wykonuj wszystkie zapytania DNS aplikacji ECHO TV za pośrednictwem niestandardowego serwera DNS.</string>
+    <string name="settings_help_app_icon">Ikona ECHO TV na ekranie głównym telewizora. Launcher może potrzebować chwili, aby pokazać zmianę.</string>
+    <string name="settings_help_bg_background">Stage pokazuje własne łagodne kolory ECHO TV. Obraz pokazuje Twój obraz za każdym ekranem. Gładkie to płaskie ciemne tło.</string>
+    <string name="settings_help_brand_accent">Logo ECHO TV w menu, w sekcji Informacje i w konfiguracji pokazuje trójkąt odtwarzania w Twoim kolorze akcentu. Ikona na ekranie głównym zachowuje swoje kolory.</string>
+    <string name="settings_help_check_updates">Sprawdza teraz na GitHubie, czy jest nowsza wersja ECHO TV, i proponuje instalację. Playlisty, ulubione i ustawienia pozostają bez zmian.</string>
+    <string name="settings_help_fonts">Czcionka używana w całym ECHO TV i rozmiar tekstu. Okienka używają tej samej czcionki.</string>
+    <string name="settings_help_startup">Co ECHO TV pokazuje po uruchomieniu: stronę główną, ostatnio oglądany kanał, ulubione lub wybrany kanał.</string>
+    <string name="settings_help_theme">ECHO TV jest zaprojektowany z myślą o ciemnym motywie. Systemowy wybiera ustawienie telewizora, jeśli je ma; jasny pasuje do jasnego pokoju.</string>
+    <string name="settings_help_update_startup">Przy każdym uruchomieniu ECHO TV szuka nowej wersji i informuje, gdy jest dostępna. Nic nie jest instalowane bez pytania.</string>
+    <string name="settings_language_contribution_description">Zeskanuj kod QR lub otwórz link, aby wybrać dowolny dostępny język i wnieść wkład we wszystkich sześciu komponentach tłumaczeń ECHO TV.</string>
+    <string name="settings_language_contribution_qr_description">Kod QR do przeglądu projektu tłumaczeń ECHO TV</string>
+    <string name="settings_language_help_translate">Pomóż przetłumaczyć ECHO TV na swój język</string>
+    <string xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="settings_language_pick_help">Używaj języka <xliff:g id="language">%1$s</xliff:g> w ECHO TV, niezależnie od języka telewizora.</string>
+    <string xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="settings_language_system_help">ECHO TV używa języka telewizora (teraz <xliff:g id="language">%1$s</xliff:g>). Wybierz poniżej język, aby używać go tylko w ECHO TV.</string>
+    <string name="settings_live_tune_timeout_description">Jeśli w tym czasie kanał na żywo nie pokaże obrazu, ECHO TV przestanie próbować i powie Ci o tym, zamiast zostawiać czarny ekran, przechodząc po kolei przez wszystkie swoje odtwarzacze. „Nigdy” próbuje dalej, co na kanale usuniętym przez dostawcę może zająć znacznie ponad minutę. Oczekiwanie, o które prosi sam dostawca, nie jest wliczane.</string>
+    <string name="settings_metadata_clear_advanced_message">Twój klucz API TMDB i adres własnego serwera zostaną usunięte z tego urządzenia, a ECHO TV wróci do wbudowanej usługi współdzielonej z jej dziennym przydziałem.</string>
+    <string name="settings_metadata_fair_share">Wbudowana usługa metadanych jest współdzielona przez wszystkich użytkowników ECHO TV, więc każde urządzenie otrzymuje każdego dnia własny przydział. Po jego wyczerpaniu plakaty i opisy zostają wstrzymane do czasu odnowienia — informacje z Twojej własnej playlisty działają normalnie. Dodanie własnego klucza API TMDB lub serwera usuwa ten limit: jest bezpłatny, a klucz osobisty praktycznie nie ma limitu.</string>
+    <string name="settings_metadata_shared_worker_description">ECHO TV Worker · bez konfiguracji</string>
+    <string name="settings_open_subtitles_access_priority">Pozostaw oba pola puste, aby korzystać ze wspólnego Workera ECHO TV. Własny adres URL Workera ma pierwszeństwo przed bezpośrednim kluczem API. Sesje konta pozostają przypisane do profilu.</string>
+    <string name="settings_proxy_description">Przesyłaj cały ruch ECHO TV i odtwarzanie przez serwer proxy HTTP.</string>
+    <string name="settings_recording_timers_inexact">To urządzenie nie pozwala aplikacji ECHO TV ustawiać dokładnych alarmów, więc nagranie może zacząć się kilka minut później. Nagrania startują wcześniej, aby to nadrobić.</string>
+    <string name="settings_restore_remote_description">Na dowolnym urządzeniu z przeglądarką w tej samej sieci Wi-Fi — telefonie, komputerze lub innym telewizorze — zeskanuj kod QR (lub otwórz adres), wpisz ten PIN, wybierz plik kopii ECHO TV i wyślij go. Potem wybierzesz tutaj, co przywrócić.</string>
+    <string name="settings_sources_probe_unknown">ECHO TV nie zdołał ustalić, ile kanałów dopuszcza ten dostawca.</string>
+    <string name="settings_sources_probe_warning">Wielu dostawców nigdy nie podaje, ile kanałów można oglądać jednocześnie, więc ECHO TV sprawdza to, otwierając kilka i obserwując, które przetrwają. Wszystko, co jest teraz odtwarzane, zostanie zatrzymane, a może to potrwać do dwóch minut.</string>
+    <string name="settings_surround_forced_description">Dźwięk przestrzenny — wysyłaj Dolby/DTS do prawdziwego amplitunera 5.1/7.1. Jeśli zrobi się cicho albo zacznie się zacinać, ECHO TV i tak wróci do stereo i poinformuje o tym.</string>
+    <string name="setup_byo_source_description">ECHO TV jest odtwarzaczem — dodaj własne źródło Xtream, M3U lub Stalker.</string>
+    <string name="setup_disclaimer">ECHO TV jest wyłącznie odtwarzaczem multimedialnym. Nie zawiera żadnych kanałów, list odtwarzania ani treści. Odpowiadasz za dodawanie własnych, legalnie dostępnych źródeł Xtream, M3U lub Stalker.</string>
+    <string name="setup_line_app_icon">Jak ECHO TV wygląda na ekranie głównym telewizora</string>
+    <string name="setup_set_up_owntv">Skonfiguruj ECHO TV</string>
+    <string name="setup_sync_device_description">Skopiuj wszystko z drugiego urządzenia ECHO TV przez Wi-Fi</string>
+    <string name="setup_welcome_title">Witamy w ECHO TV</string>
+    <string xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" name="update_ready">ECHO TV v<xliff:g id="available">%1$s</xliff:g> jest gotowa (masz v<xliff:g id="current">%2$s</xliff:g>).</string>
+</resources>

@@ -1,0 +1,242 @@
+package com.shadydevelopment.echotv.features.subtitles
+
+import com.shadydevelopment.echotv.ui.theme.StageColors
+import com.shadydevelopment.echotv.ui.theme.stageAccent
+import com.shadydevelopment.echotv.ui.theme.stageText
+import com.shadydevelopment.echotv.ui.theme.mpx
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.androidx.compose.koinViewModel
+import androidx.tv.material3.Text
+import com.shadydevelopment.echotv.ui.components.OwnTVButton
+import com.shadydevelopment.echotv.ui.components.OwnTVButtonStyle
+import com.shadydevelopment.echotv.ui.components.OwnTVSpinner
+import com.shadydevelopment.echotv.ui.components.OwnTVTextField
+
+/**
+ * OpenSubtitles search overlay, opened from the player HUD's ADD SUBTITLES entry (subtitle plan §6).
+ * Shows results for the playing movie/episode; selecting one downloads, attaches, and remembers it.
+ */
+@Composable
+fun SubtitleSearchScreen(
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val vm: SubtitleSearchViewModel = koinViewModel()
+    val state by vm.state.collectAsStateWithLifecycle()
+    val applying by vm.applying.collectAsStateWithLifecycle()
+    val quotaNote by vm.quotaNote.collectAsStateWithLifecycle()
+
+    // Fresh search each time the overlay opens (the ViewModel is reused across opens), and close on
+    // the one-shot "applied" event.
+    LaunchedEffect(Unit) { vm.start() }
+    LaunchedEffect(Unit) { vm.applied.collect { onDismiss() } }
+
+    var editing by remember { mutableStateOf(false) }
+    BackHandler { if (editing) editing = false else onDismiss() }
+
+
+        val quotaText = quotaNote?.let { quota ->
+            if (quota.reset != null) {
+                pluralStringResource(com.shadydevelopment.echotv.R.plurals.player_subtitles_remaining_reset, quota.remaining, quota.remaining, quota.reset)
+            } else {
+                pluralStringResource(com.shadydevelopment.echotv.R.plurals.player_subtitles_remaining_count, quota.remaining, quota.remaining)
+            }
+        }
+        com.shadydevelopment.echotv.ui.stage.StagePopup(
+            onDismiss = { if (editing) editing = false else onDismiss() },
+            title = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_search_title),
+            body = quotaText,
+            eyebrow = null,
+            width = 1000.mpx,
+        ) {
+                if (editing) {
+                    EditSearchField(
+                        initial = vm.initialQuery,
+                        onSubmit = { q -> editing = false; vm.editSearch(q) },
+                        onCancel = { editing = false },
+                    )
+                } else {
+                    when (val s = state) {
+                        // Not signed in (or session expired) — sign-in lives in Settings only.
+                        is SubtitleSearchViewModel.UiState.SignedOut -> Message(
+                            if (s.sessionExpired) {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_session_expired)
+                            } else {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_account_needed)
+                            },
+                            primary = stringResource(com.shadydevelopment.echotv.R.string.settings_close), onPrimary = onDismiss,
+                        )
+                        SubtitleSearchViewModel.UiState.Loading ->
+                            Centered { OwnTVSpinner(); Spacer(Modifier.height(12.mpx)); Text(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_working), style = stageText(18, 400), color = StageColors.Muted) }
+                        is SubtitleSearchViewModel.UiState.Empty -> Message(
+                            if (s.showingAllLanguages) {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_no_matches_all_languages)
+                            } else {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_no_matches_chosen_language)
+                            },
+                            primary = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_edit_search), onPrimary = { editing = true },
+                            secondary = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_show_all_languages).takeIf { !s.showingAllLanguages },
+                            onSecondary = vm::showAllLanguages,
+                            tertiary = stringResource(com.shadydevelopment.echotv.R.string.settings_close), onTertiary = onDismiss,
+                        )
+                        is SubtitleSearchViewModel.UiState.Error -> Message(
+                            if (s.kind == SubtitleSearchViewModel.UiState.ErrorKind.LIMIT_REACHED) {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_limit_reached)
+                            } else {
+                                stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_network_error)
+                            },
+                            primary = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_try_again), onPrimary = vm::retry,
+                            tertiary = stringResource(com.shadydevelopment.echotv.R.string.settings_close), onTertiary = onDismiss,
+                        )
+                        is SubtitleSearchViewModel.UiState.Results -> ResultsList(
+                            results = s.results,
+                            applyingFileId = applying,
+                            onSelect = vm::select,
+                            onEdit = { editing = true },
+                            onShowAll = if (!s.showingAllLanguages) vm::showAllLanguages else null,
+                            onClose = onDismiss,
+                        )
+                    }
+                    Spacer(Modifier.height(22.mpx))
+                    OpenSubtitlesAttribution()
+                }
+            }
+    
+
+    // Sign-in is handled in Settings → Video player → Subtitles → OpenSubtitles only.
+}
+
+/** Logo + credit line, mirroring the TMDB attribution in Metadata settings. */
+@Composable
+private fun OpenSubtitlesAttribution() {
+    androidx.compose.foundation.Image(
+        painter = androidx.compose.ui.res.painterResource(com.shadydevelopment.echotv.R.drawable.ic_opensubtitles_logo),
+        contentDescription = stringResource(com.shadydevelopment.echotv.R.string.settings_open_subtitles),
+        modifier = Modifier.height(28.mpx),
+    )
+    Spacer(Modifier.height(8.mpx))
+    Text(
+        stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_api_notice),
+        style = stageText(15, 500),
+        color = StageColors.Dim,
+    )
+}
+
+@Composable
+private fun ResultsList(
+    results: List<SubtitleSearchViewModel.Result>,
+    applyingFileId: Long?,
+    onSelect: (SubtitleSearchViewModel.Result) -> Unit,
+    onEdit: () -> Unit,
+    onShowAll: (() -> Unit)?,
+    onClose: () -> Unit,
+) {
+    val firstFocus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { firstFocus.requestFocus() } }
+    Column {
+        LazyColumn(Modifier.fillMaxWidth().heightIn(max = 430.mpx), verticalArrangement = Arrangement.spacedBy(4.mpx)) {
+            items(results, key = { it.fileId }) { r ->
+                val tags = buildList {
+                    if (r.fromTrusted) add(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_trusted))
+                    if (r.hearingImpaired) add(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_sdh))
+                    if (r.aiTranslated) add(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_ai))
+                    if (r.downloads > 0) add(pluralStringResource(com.shadydevelopment.echotv.R.plurals.player_subtitles_download_count, r.downloads, r.downloads))
+                }
+                val separator = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_tags_separator)
+                com.shadydevelopment.echotv.ui.stage.StagePopupOption(
+                    title = r.languageName ?: r.language ?: stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_subtitle),
+                    subtitle = r.releaseName ?: stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_subtitle),
+                    onClick = { onSelect(r) },
+                    enabled = applyingFileId == null,
+                    modifier = if (r == results.first()) Modifier.focusRequester(firstFocus) else Modifier,
+                    trailing = { focused ->
+                        if (tags.isNotEmpty()) {
+                            Text(tags.joinToString(separator), style = stageText(15, 700), color = if (focused) StageColors.Text else stageAccent.accent, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                        }
+                        if (applyingFileId == r.fileId) OwnTVSpinner()
+                    },
+                )
+            }
+        }
+        ButtonRow {
+            OwnTVButton(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_edit_search), onClick = onEdit, style = OwnTVButtonStyle.SECONDARY)
+            onShowAll?.let { OwnTVButton(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_all_languages), onClick = it, style = OwnTVButtonStyle.SECONDARY) }
+            OwnTVButton(stringResource(com.shadydevelopment.echotv.R.string.settings_close), onClick = onClose, style = OwnTVButtonStyle.SECONDARY)
+        }
+    }
+}
+
+/** The popup's buttons, bottom right as every Stage popup has them. */
+@Composable
+private fun ButtonRow(content: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(top = 24.mpx), horizontalArrangement = Arrangement.spacedBy(14.mpx, Alignment.End), content = content)
+}
+
+@Composable
+private fun EditSearchField(initial: String, onSubmit: (String) -> Unit, onCancel: () -> Unit) {
+    var value by remember { mutableStateOf(initial) }
+    val fieldFocus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { fieldFocus.requestFocus() } }
+    Column {
+        com.shadydevelopment.echotv.ui.stage.StagePopupLabel(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_edit_search).uppercase())
+        OwnTVTextField(value = value, onValueChange = { value = it }, label = stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_title_label), modifier = Modifier.fillMaxWidth(), focusRequester = fieldFocus)
+        ButtonRow {
+            OwnTVButton(stringResource(com.shadydevelopment.echotv.R.string.common_cancel), onClick = onCancel, style = OwnTVButtonStyle.SECONDARY)
+            OwnTVButton(stringResource(com.shadydevelopment.echotv.R.string.player_subtitles_search), onClick = { onSubmit(value.trim()) })
+        }
+    }
+}
+
+@Composable
+private fun Message(
+    text: String,
+    primary: String,
+    onPrimary: () -> Unit,
+    secondary: String? = null,
+    onSecondary: (() -> Unit)? = null,
+    tertiary: String? = null,
+    onTertiary: (() -> Unit)? = null,
+) {
+    val focus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
+    Column {
+        Text(text, style = stageText(18, 400), color = StageColors.Muted)
+        ButtonRow {
+            secondary?.let { OwnTVButton(it, onClick = { onSecondary?.invoke() }, style = OwnTVButtonStyle.SECONDARY) }
+            tertiary?.let { OwnTVButton(it, onClick = { onTertiary?.invoke() }, style = OwnTVButtonStyle.SECONDARY) }
+            OwnTVButton(primary, onClick = onPrimary, modifier = Modifier.focusRequester(focus))
+        }
+    }
+}
+
+@Composable
+private fun Centered(content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit) {
+    Column(
+        Modifier.fillMaxWidth().padding(vertical = 24.mpx),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        content = content,
+    )
+}

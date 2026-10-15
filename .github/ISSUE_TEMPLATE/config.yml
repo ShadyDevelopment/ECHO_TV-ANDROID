@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ECHO TV issue tracker
+    url: https://github.com/ShadyDevelopment/ECHO_TV-ANDROID/issues
+    about: Report a bug or suggest an improvement for ECHO TV.

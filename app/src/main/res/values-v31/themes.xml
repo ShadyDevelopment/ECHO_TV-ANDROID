@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.EchoTV.Starting.Petrol">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Sunflower">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Cobalt">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Tomato">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Board">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Eggshell">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Olive">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.OliveCream">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Pixel">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/echo_tv_horizontal</item>
+    </style>
+    <!-- Animations Off: the same launch screen with the still mark. MainActivity hands one of these to
+         SplashScreen.setSplashScreenTheme (Android 13+), which applies from the next launch on. -->
+    <style name="Theme.EchoTV.Starting.Petrol.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Sunflower.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Cobalt.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Tomato.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Board.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Eggshell.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Olive.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.OliveCream.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+    <style name="Theme.EchoTV.Starting.Pixel.Still">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echo_tv_mark</item>
+    </style>
+</resources>

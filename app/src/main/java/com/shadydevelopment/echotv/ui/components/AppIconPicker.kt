@@ -34,6 +34,12 @@ import tv.own.owntv.core.brand.AppIcon
 import tv.own.owntv.core.brand.AppIconSwitcher
 import com.shadydevelopment.echotv.ui.theme.OwnTVTheme
 
+@Composable
+fun rememberAppliedIcon(): AppIcon {
+    val context = LocalContext.current
+    return remember(context) { AppIconSwitcher.applied(context) }
+}
+
 /**
  * The icon colours as two rows of tiles, each showing its own flat mark, with the focused (or
  * chosen) colour's name underneath. Used by the setup step and by Settings.
@@ -81,8 +87,7 @@ fun AppIconPicker(
  */
 @Composable
 fun AppIconSettingsDialog(chosen: AppIcon, onPick: (AppIcon) -> Unit, onDismiss: () -> Unit) {
-    val context = LocalContext.current
-    val applied = remember(context) { AppIconSwitcher.applied(context) }
+    val applied = rememberAppliedIcon()
     var picked by remember { mutableStateOf<AppIcon?>(null) }
     val tileFocus = remember { FocusRequester() }
     LaunchedEffect(Unit) { kotlinx.coroutines.delay(60); runCatching { tileFocus.requestFocus() } }

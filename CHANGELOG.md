@@ -1,4 +1,4 @@
-# OwnTV — Changelog
+# ECHO TV — Changelog
 
 > Release notes: two parts per version — New features (by name) and Fixes. This file feeds the GitHub release body and the in-app update dialog.
 >
@@ -75,6 +75,14 @@
 - **⏭️ Auto-play continues past a missing season number instead of stopping**
 - **🔤 M3U episodes named "Season 1 Episode 5" or "S2019E05" are recognised**
 - **💾 Big downloads to a FAT32 USB stick fail with a clear reason**
+
+## v1.0.0 — 2026-10-15
+
+### ✨ New features
+- **ECHO TV for Android TV**
+
+### 🐛 Fixes
+- **Android app compilation and debug QA activity registration**
 
 ## v5.1.0 — 2026-10-04
 

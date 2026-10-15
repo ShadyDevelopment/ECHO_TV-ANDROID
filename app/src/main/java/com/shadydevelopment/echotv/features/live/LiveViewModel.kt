@@ -1306,8 +1306,6 @@ class LiveViewModel(
             "zap: tune wait ${delayMs}ms — ${zapWaitReason(lastZapPressMs, now, singleConnection)}",
         )
         lastZapPressMs = now
-        // Diagnostics only: the tune this press causes claims it and times its first frame from here.
-        com.shadydevelopment.echotv.player.ZapTiming.shared.markPress(now)
         pendingZapTuneJob?.cancel()
         if (delayMs <= 0L) {
             pendingZapTuneJob = null
@@ -1506,8 +1504,6 @@ class LiveViewModel(
      *  because it's still loading (clicking OK before the preview is ready used to drop to mpv and
      *  stick on a black screen for HLS). */
     fun ensurePlaying(channel: ChannelEntity) {
-        // A deliberate pick, not a CH+/- step: an unclaimed zap press must not be timed against it.
-        com.shadydevelopment.echotv.player.ZapTiming.shared.clear()
         startTune(channel)
     }
 

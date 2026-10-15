@@ -1189,6 +1189,21 @@ private fun buildSeriesDetails(
 private fun episodeDisplayTitle(episode: EpisodeEntity): String =
     episode.name.takeIf { it.isNotBlank() } ?: stringResource(R.string.player_episode_number, episode.episodeNumber)
 
+internal fun cleanProviderEpisodeTitle(episodeTitle: String, seriesTitle: String): String? {
+    val original = episodeTitle.trim().takeIf(String::isNotEmpty) ?: return null
+    val show = seriesTitle.trim()
+    val withoutShow = if (show.isNotEmpty() && original.startsWith(show, ignoreCase = true)) {
+        original.drop(show.length).trimStart(' ', '-', ':', '|', '·', '–', '—')
+    } else {
+        original
+    }
+    val withoutEpisodeCode = withoutShow.replaceFirst(
+        Regex("""^(?:(?:S\d{1,3}\s*[-.]?\s*E\d{1,4})|(?:\d{1,3}\s*[xX]\s*\d{1,4}))(?:\s*[-:.)]\s*|\s+)"""),
+        "",
+    ).trim()
+    return withoutEpisodeCode.takeIf(String::isNotEmpty) ?: original
+}
+
 /** Build the fullscreen TMDB-details payload for an episode (still as the hero; no 2:3 poster). */
 @Composable
 private fun buildEpisodeDetails(
@@ -1390,7 +1405,7 @@ private fun EpisodeView(
     val resources = androidx.compose.ui.platform.LocalResources.current
     val epName: (EpisodeEntity, tv.own.owntv.core.database.entity.MetadataCacheEntity?) -> String = { ep, meta ->
         val tmdb = meta?.title?.takeIf { it.isNotBlank() }
-        val own = tv.own.owntv.core.content.EpisodeTitles.clean(ep.name, series.name)
+        val own = cleanProviderEpisodeTitle(ep.name, series.name)
         (if (metadataMode.tmdbWins) tmdb ?: own else own ?: tmdb)
             ?: resources.getString(R.string.player_episode_number, ep.episodeNumber)
     }
